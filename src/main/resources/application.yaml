@@ -1,0 +1,15 @@
+server:
+  port: 9092
+
+spring:
+  application:
+    name: athena-report-service
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
