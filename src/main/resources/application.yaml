@@ -4,6 +4,45 @@ server:
 spring:
   application:
     name: athena-report-service
+  ai:
+    chat:
+      observations:
+        log-prompt: false
+    openai:
+      api-key: ${GEMINI_API_KEY}
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
+      chat:
+        completions-path: /chat/completions
+        options:
+          model: gemini-2.5-pro
+          temperature: 0.0
+    mcp:
+      client:
+        stdio:
+          root-change-notification: true
+          connections:
+            github:
+              command: docker
+              args:
+                - "run"
+                - "--rm"
+                - "-i"
+                - "--init"
+                - "--security-opt"
+                - "no-new-privileges"
+                - "--cpus"
+                - "1"
+                - "--memory"
+                - "2Gb"
+                - "--pull"
+                - "never"
+                - "-e"
+                - "GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_TOKEN}"
+                - "mcp/github@sha256:89fd71b6f2dd098de0d7517c1899b7fe90590d3193e253991d61a800b041bfd4"
+              env:
+                GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
+
+
 
 eureka:
   instance:
