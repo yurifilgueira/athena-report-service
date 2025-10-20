@@ -1,5 +1,5 @@
 server:
-  port: 9092
+  port: 9090
 
 spring:
   application:
@@ -14,7 +14,7 @@ spring:
       chat:
         completions-path: /chat/completions
         options:
-          model: gemini-2.5-pro
+          model: gemini-2.0-flash
           temperature: 0.0
     mcp:
       client:
