@@ -4,8 +4,10 @@ import com.projectathena.reportservice.dto.DeveloperMetricInfo;
 import com.projectathena.reportservice.dto.requests.ReportRequest;
 
 import com.projectathena.reportservice.services.ReportService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -19,10 +21,9 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @PostMapping()
-    public ResponseEntity<?> generateReport(@RequestBody List<DeveloperMetricInfo> infos) {
-        var response = reportService.generateReport(infos);
-
-        return ResponseEntity.ok().body(response);
+    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> generateReport(@RequestBody List<DeveloperMetricInfo> infos) {
+        return reportService.generateReport(infos);
     }
+
 }
