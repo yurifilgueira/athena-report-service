@@ -3,7 +3,9 @@ package com.projectathena.reportservice.controllers;
 import com.projectathena.reportservice.dto.DeveloperMetricInfo;
 import com.projectathena.reportservice.dto.requests.ReportRequest;
 
+import com.projectathena.reportservice.dto.responses.ReportResponse;
 import com.projectathena.reportservice.services.ReportService;
+import jakarta.ws.rs.POST;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> generateReport(@RequestBody List<DeveloperMetricInfo> infos) {
+    @PostMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ReportResponse> generateReport(@RequestBody List<DeveloperMetricInfo> infos) {
         return reportService.generateReport(infos);
     }
 

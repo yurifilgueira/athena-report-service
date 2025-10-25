@@ -21,7 +21,7 @@ public class ReportService {
         this.chatClient = chatClient;
     }
 
-    public Flux<String> generateReport(List<DeveloperMetricInfo> infos) {
+    public Flux<ReportResponse> generateReport(List<DeveloperMetricInfo> infos) {
 
         String metricsData = infos.stream()
                 .map(DeveloperMetricInfo::toString)
@@ -36,28 +36,12 @@ public class ReportService {
             %s
             """.formatted(metricsData);
 
-        return chatClient.
+        Flux<String> reportFlux = chatClient.
                 prompt()
                 .user(userMessage -> userMessage.text(finalPrompt))
                 .stream()
                 .content();
-    }
 
-    public Flux<String> hello(String infos) {
-
-        String finalPrompt = """
-            Here is a list of performance metrics for multiple developers.
-            Please generate a single, consolidated performance report based on this data.
-            The report should provide a comparative analysis, highlighting top performers and identifying common trends or challenges across the team.
-
-            **Metrics Data:**
-            %s
-            """.formatted(infos);
-
-        return chatClient.
-                prompt()
-                .user(userMessage -> userMessage.text(finalPrompt))
-                .stream()
-                .content();
+         return reportFlux.map(ReportResponse::new);
     }
 }
