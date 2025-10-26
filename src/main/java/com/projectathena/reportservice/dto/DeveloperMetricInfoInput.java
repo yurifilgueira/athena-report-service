@@ -4,20 +4,19 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeveloperMetricInfo {
+public class DeveloperMetricInfoInput {
 
     private String developerUsername;
     private String developerEmail;
-    private final List<MetricValue> metricValues;
+    private List<MetricValueInput> metricValues;
 
-    public DeveloperMetricInfo() {
-        metricValues = new ArrayList<>();
+    public DeveloperMetricInfoInput() {
     }
 
-    public DeveloperMetricInfo(String developerUsername, String developerEmail, List<MetricValue> metricValues) {
-        this.developerUsername = developerUsername;
-        this.developerEmail = developerEmail;
+    public DeveloperMetricInfoInput(List<MetricValueInput> metricValues, String developerEmail, String developerUsername) {
         this.metricValues = metricValues;
+        this.developerEmail = developerEmail;
+        this.developerUsername = developerUsername;
     }
 
     public String getDeveloperUsername() {
@@ -36,17 +35,17 @@ public class DeveloperMetricInfo {
         this.developerEmail = developerEmail;
     }
 
-    public List<MetricValue> getMetricValues() {
+    public List<MetricValueInput> getMetricValues() {
         return metricValues;
     }
 
-    public void addMetric(BigDecimal value, String description, MetricType metricType) {
-        this.metricValues.add(new MetricValue(value, description, metricType));
+    public void setMetricValues(List<MetricValueInput> metricValues) {
+        this.metricValues = metricValues;
     }
 
     @Override
     public String toString() {
-        return "DeveloperMetricInfo{" +
+        return "DeveloperMetricInfoInput{" +
                 "developerUsername='" + developerUsername + '\'' +
                 ", developerEmail='" + developerEmail + '\'' +
                 ", metricValues=" + metricValues +

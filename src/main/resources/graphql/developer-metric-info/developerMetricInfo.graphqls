@@ -1,0 +1,5 @@
+input DeveloperMetricInfoInput {
+    developerUsername: String,
+    developerEmail: String,
+    metricValues: [MetricValueInput]!
+}

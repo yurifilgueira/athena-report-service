@@ -1,16 +1,16 @@
 package com.projectathena.reportservice.controllers;
 
-import com.projectathena.reportservice.dto.DeveloperMetricInfo;
-import com.projectathena.reportservice.dto.requests.ReportRequest;
+import com.projectathena.reportservice.dto.DeveloperMetricInfoInput;
 
+import com.projectathena.reportservice.dto.responses.ReportResponse;
 import com.projectathena.reportservice.services.ReportService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/reports")
+@Controller
 public class ReportController {
 
     private final ReportService reportService;
@@ -19,10 +19,11 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @PostMapping()
-    public ResponseEntity<?> generateReport(@RequestBody List<DeveloperMetricInfo> infos) {
-        var response = reportService.generateReport(infos);
+    @QueryMapping
+    public ReportResponse generateReport(@Argument List<DeveloperMetricInfoInput> infos) {
 
-        return ResponseEntity.ok().body(response);
+        System.out.println("Arroz: " + infos.getFirst().getMetricValues().getFirst());
+
+        return reportService.generateReport(infos);
     }
 }

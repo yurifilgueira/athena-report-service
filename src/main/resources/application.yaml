@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: athena-report-service
+  graphql:
+    schema:
+      locations: "classpath:graphql/**/"
   ai:
     chat:
       observations:

@@ -1,7 +1,6 @@
 package com.projectathena.reportservice.services;
 
-import com.projectathena.reportservice.dto.DeveloperMetricInfo;
-import com.projectathena.reportservice.dto.requests.ReportRequest;
+import com.projectathena.reportservice.dto.DeveloperMetricInfoInput;
 import com.projectathena.reportservice.dto.responses.ReportResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
@@ -20,10 +19,11 @@ public class ReportService {
         this.chatClient = chatClient;
     }
 
-    public ReportResponse generateReport(List<DeveloperMetricInfo> infos) {
+    public ReportResponse generateReport(List<DeveloperMetricInfoInput> infos) {
+
 
         String metricsData = infos.stream()
-                .map(DeveloperMetricInfo::toString)
+                .map(DeveloperMetricInfoInput::toString)
                 .collect(Collectors.joining("\n--------------------------------\n"));
 
         String finalPrompt = """

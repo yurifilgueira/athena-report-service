@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class MetricValue implements Serializable {
+public class MetricValueInput implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -13,10 +13,10 @@ public class MetricValue implements Serializable {
     private String description;
     private MetricType metricType;
 
-    public MetricValue() {
+    public MetricValueInput() {
     }
 
-    public MetricValue(BigDecimal value, String description, MetricType metricType) {
+    public MetricValueInput(BigDecimal value, String description, MetricType metricType) {
         this.value = value;
         this.description = description;
         this.metricType = metricType;
@@ -48,7 +48,7 @@ public class MetricValue implements Serializable {
 
     @Override
     public String toString() {
-        return "MetricValue{" +
+        return "MetricValueInput{" +
                 "value=" + value +
                 ", description='" + description + '\'' +
                 ", metricType=" + metricType +
