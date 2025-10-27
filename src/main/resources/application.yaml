@@ -43,6 +43,14 @@ spring:
                 GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_TOKEN}
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 eureka:
   instance:
